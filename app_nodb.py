@@ -1,14 +1,8 @@
 from flask import Flask, request
 import socket
 from datetime import datetime
-import os
-from pymongo import MongoClient
 
 app = Flask(__name__)
-
-client = MongoClient(os.getenv("MONGO_URI"))
-db = client.net4255
-logs_collection = db.logs
 
 @app.route("/")
 def index():
@@ -17,18 +11,6 @@ def index():
     version = "V3"
     hostname = socket.gethostname()
     current_date = datetime.now()
-    client_ip = request.remote_addr
-
-    logs_collection.insert_one({
-        "ip": client_ip, 
-        "date": current_date
-    })
-
-    last_logs = list(logs_collection.find().sort("date", -1).limit(10))
-    
-    logs_html = ""
-    for log in last_logs:
-        logs_html += f"<li>IP: {log['date']} | Date : {log['ip']}</li>"
 
     return f"""
     <p><b>Name:</b> {name}</p>
@@ -39,7 +21,7 @@ def index():
 
     <h3>Last 10 visits:</h3>
     <ul>
-        {logs_html}
+        <li>No db</li>
     </ul>
     """
 
