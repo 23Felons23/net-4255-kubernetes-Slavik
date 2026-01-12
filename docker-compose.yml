@@ -1,5 +1,17 @@
 
 services:
+  app:
+    build: .
+    container_name: app
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://admin:pass@mongodb:27017/
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -10,6 +22,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: pass
+    networks:
+      - app-network
+
+networks:
+  app-network:
 
 volumes:
   mongodb_data:
