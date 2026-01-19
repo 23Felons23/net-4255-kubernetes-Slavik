@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-nodb
+  namespace: szhyhota-locquin
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-nodb
+  template:
+    metadata:
+      labels:
+        app: app-nodb
+    spec: 
+      containers:
+      - name: app-nodb-container
+        image: slavikz/challenge_4:v1
+        command: ["python"]
+        args: ["app_nodb.py"]
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-nodb-service
+spec:
+  type: ClusterIP
+  selector:
+    app: app-nodb
+  ports:
+    - port: 80
+      targetPort: 5000
