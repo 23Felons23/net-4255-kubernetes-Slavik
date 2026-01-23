@@ -14,6 +14,7 @@ def index():
 
     return f"""
     <p><b>Name:</b> {name}</p>
+    
     <p><b>Project:</b> {project}</p>
     <p><b>Version:</b> {version}</p>
     <p><b>Server Hostname:</b> {hostname}</p>
