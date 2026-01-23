@@ -28,7 +28,7 @@ def index():
     
     logs_html = ""
     for log in last_logs:
-        logs_html += f"<li>IP: {log['date']} | Date : {log['ip']}</li>"
+        logs_html += f"<li>Date: {log['date']} | IP : {log['ip']}</li>"
 
     return f"""
     <p><b>Name:</b> {name}</p>
