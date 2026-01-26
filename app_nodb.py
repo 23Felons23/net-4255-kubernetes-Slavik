@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     name = "Slavik"
     project = "net4255-kubernetes-Slavik-c4"
-    version = "V3"
+    version = "V4"
     hostname = socket.gethostname()
     current_date = datetime.now()
 

@@ -2,7 +2,8 @@ namespace: szhyhota-locquin
 
 image:
   repository: slavikz/challenge_4
-  tag: v1
+
+  tag: v2
 
 mongodb:
   image: mongo:latest
