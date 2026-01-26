@@ -2,10 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-nodb
-  namespace: szhyhota-locquin
-
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.appNodb.replicas }}
   selector:
     matchLabels:
       app: app-nodb
@@ -16,18 +15,18 @@ spec:
     spec: 
       containers:
       - name: app-nodb-container
-        image: slavikz/challenge_4:v1
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         command: ["python"]
         args: ["app_nodb.py"]
         ports:
         - containerPort: 5000
         resources:
           requests:
-            cpu: "100m"
-            memory: "100Mi"
+            cpu: {{ .Values.appNodb.resources.requests.cpu }}
+            memory: {{ .Values.appNodb.resources.requests.memory }}
           limits:
-            cpu: "200m"
-            memory: "200Mi"
+            cpu: {{ .Values.appNodb.resources.limits.cpu }}
+            memory: {{ .Values.appNodb.resources.limits.memory }}
         livenessProbe:
           httpGet:
             path: /
@@ -38,11 +37,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-nodb-service
+  name: {{ .Values.appNodb.service.name }}
+  namespace: {{ .Values.namespace }}
 spec:
   type: ClusterIP
   selector:
     app: app-nodb
   ports:
-    - port: 80
-      targetPort: 5000
+    - port: {{ .Values.appNodb.service.port }}
+      targetPort: {{ .Values.appNodb.service.targetPort }}

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  namespace: {{ .Values.namespace }}
+data:
+  MONGO_HOST: {{ .Values.mongodb.service.name }}
+  MONGO_PORT: "{{ .Values.mongodb.service.port }}"
