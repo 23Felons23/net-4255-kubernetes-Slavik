@@ -18,6 +18,10 @@ mongodb:
     limits:
       cpu: 200m
       memory: 350Mi
+  persistence:
+    enabled: true
+    storageClass: "longhorn"
+    size: 800Mi
 
 app:
   replicas: 3

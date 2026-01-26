@@ -4,5 +4,5 @@ metadata:
   name: {{ .Release.Name }}-config
   namespace: {{ .Values.namespace }}
 data:
-  MONGO_HOST: {{ .Values.mongodb.service.name }}
+  MONGO_HOST: mongodb-0.{{ .Values.mongodb.service.name }}
   MONGO_PORT: "{{ .Values.mongodb.service.port }}"
